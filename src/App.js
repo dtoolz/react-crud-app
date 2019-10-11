@@ -6,6 +6,35 @@ import uuid from "uuid"
 
 
 class App extends Component {
+  state={
+     items: [],
+     id:uuid(),
+     item:'',
+     editItem:false
+  }
+  //method to handle changes on input from ui
+  handleChange = (e) => {
+    this.setState({
+      item:e.target.value
+    });
+  };
+  //handle submit to add in the input from ui
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const newItem = {
+      id:this.state.id,
+      title:this.state.item
+    }
+    //to push newItem to update the old empty state without mutating the old state
+    const updatedItems=[...this.state.items,newItem];
+     this.setState({
+       items:updatedItems,
+       item:'',
+       id:uuid(),
+       editItem:false
+     });
+  };
+
   render() {
     return (
 
@@ -13,8 +42,8 @@ class App extends Component {
         <div className="row" >
           <div className="col-10 mx-auto col-md-8 mt-4" >
             <h3 className="text-capitalize text-center" > make your todo input </h3>
-            <TodoInput/>
-            <TodoList/>
+            <TodoInput item={this.state.item} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+            <TodoList items={this.state.items} />
           </div>
         </div>
       </div>
