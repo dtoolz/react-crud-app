@@ -34,6 +34,17 @@ class App extends Component {
        editItem:false
      });
   };
+  //method to delete all items from todolist
+   clearList = () =>{
+    this.setState({
+       items:[]
+    });
+   }
+  //method to delete each item from todo
+   handleDelete = (id) =>{
+      const filteredItems = this.state.items.filter(item => item.id !== id);
+      this.setState({items:filteredItems});
+   };
 
   render() {
     return (
@@ -43,7 +54,7 @@ class App extends Component {
           <div className="col-10 mx-auto col-md-8 mt-4" >
             <h3 className="text-capitalize text-center" > make your todo input </h3>
             <TodoInput item={this.state.item} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-            <TodoList items={this.state.items} />
+            <TodoList items={this.state.items} clearList={this.clearList} handleDelete={this.handleDelete} />
           </div>
         </div>
       </div>
