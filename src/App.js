@@ -18,6 +18,14 @@ class App extends Component {
       item:e.target.value
     });
   };
+  //to disable submit when inputs are empty
+  disableSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.item === ""){
+      alert("input cannot be empty");
+      this.setState(null) 
+    }
+  }
   //handle submit to add in the input from ui
   handleSubmit = (e) => {
     e.preventDefault();
@@ -69,6 +77,7 @@ class App extends Component {
             handleChange={this.handleChange}
              handleSubmit={this.handleSubmit}
              editItem={this.state.editItem}
+             disableSubmit={this.disableSubmit}
              />
 
             <TodoList items={this.state.items} 
